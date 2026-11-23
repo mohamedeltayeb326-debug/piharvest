@@ -3,37 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>سمسم القضارف - MONEEB GLOBAL</title>
+<title>المنتج - MONEEB GLOBAL</title>
 <style>
-body{margin:0;font-family:Arial;background:#f6f6f6;direction:rtl}
-.header{background:#0f3d1e;color:#fff;padding:12px;text-align:center}
-.header h2{margin:0;color:#f5c542}
-img.main{width:100%;height:280px;object-fit:cover}
-.box{background:#fff;margin:12px;padding:15px;border-radius:15px}
-.price{font-size:22px;font-weight:bold;color:#0f3d1e}
-.btn{width:100%;background:#7b2ff7;color:#fff;border:none;padding:15px;border-radius:30px;font-size:18px;margin-top:10px}
-.btn2{width:100%;background:#f5c542;color:#000;border:none;padding:12px;border-radius:30px;font-size:16px;margin-top:10px}
-.nav{position:fixed;bottom:0;width:100%;background:#fff;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #ddd}
-.nav a{text-decoration:none;color:#0f3d1e;font-weight:bold}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#f5f5f5}
+.header{background:#1a4d1a;color:white;text-align:center;padding:15px;font-weight:bold;font-size:20px}
+.product-img{width:100%;height:300px;object-fit:cover}
+.box{background:white;margin:12px;padding:15px;border-radius:15px}
+.box h2{margin-bottom:8px}
+.box p{color:#555;line-height:1.7;font-size:14px}
+.price{color:#1a4d1a;font-weight:bold;font-size:22px;margin:10px 0}
+.btn{width:100%;padding:14px;border:none;border-radius:25px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:8px}
+.btn-add{background:#6a1b9a;color:white}
+.btn-back{background:#eee}
 </style>
 </head>
 <body>
-<div class="header"><h2>MONEEB GLOBAL</h2></div>
-<img class="main" src="https://images.unsplash.com/photo-1596591606975-97ee5cef3a1e?w=800">
+<div class="header">MONEEB GLOBAL</div>
+<img id="pImg" class="product-img" src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800">
 <div class="box">
-<h2>سمسم القضارف - درجة أولى</h2>
-<p>⭐ 4.9 | من مزارع القضارف مباشرة</p>
-<div class="price">12 Pi - 25 كجم</div>
-<p>سمسم أبيض نقي، مجفف طبيعياً، جاهز للتصدير. جودة عالية، نسبة زيت ممتازة.</p>
-<p><b>المزارع:</b> محمد الطيب - القضارف</p>
-<p><b>الكمية:</b> <button onclick="chg(-1)">-</button> <span id="q">1</span> <button onclick="chg(1)">+</button> جوال</p>
-<button class="btn" onclick="location.href='cart.html'">أضف للسلة 🛒</button>
-<button class="btn2" onclick="location.href='home.html'">⬅ رجوع</button>
+<h2 id="pName">سمسم القضارف - درجة أولى</h2>
+<p id="pDesc">سمسم سوداني أصلي من القضارف، درجة أولى، نظيف ومجفف، مناسب للتصدير والطحن. جودة عالية من مزارع مباشرة.</p>
+<div class="price" id="pPrice">12 Pi - 25 كجم</div>
+<p>🚚 الشحن: متوفر لكل الولايات<br>✅ متوفر في المخزون<br>🌾 من المزرعة مباشرة</p>
+<button class="btn btn-add" onclick="location.href='cart.html'">أضف للسلة 🛒</button>
+<button class="btn btn-back" onclick="location.href='home.html'">⬅ رجوع للرئيسية</button>
 </div>
-<br><br>
-<div class="nav"><a href="home.html">🏠 الرئيسية</a><a href="cart.html">🛒 السلة</a><a href="tracking.html">📦 التتبع</a><a href="account.html">👤 حسابي</a></div>
 <script>
-let q=1;function chg(n){q=Math.max(1,q+n);document.getElementById('q').innerText=q;}
+const products={
+sesame:{name:"سمسم القضارف - درجة أولى",price:"12 Pi - 25 كجم",img:"https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800",desc:"سمسم سوداني أصلي من القضارف، درجة أولى، نظيف ومجفف."},
+karkade:{name:"كركدي مجفف",price:"8 Pi - 10 كجم",img:"https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=800",desc:"كركدي سوداني مجفف طبيعي، لون غامق وطعم ممتاز."},
+peanut:{name:"فول سوداني مقشر",price:"9 Pi - 25 كجم",img:"https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=800",desc:"فول سوداني مقشر، حبة كبيرة، من أفضل المزارع."},
+dates:{name:"تمر / بلح فاخر",price:"15 Pi - 10 كجم",img:"https://images.unsplash.com/photo-1593904308074-1e3f0e72e0c0?w=800",desc:"تمر سوداني فاخر، طعم حلو وطبيعي 100%."}
+};
+const id=new URLSearchParams(location.search).get('id');
+if(products[id]){
+document.getElementById('pName').innerText=products[id].name;
+document.getElementById('pPrice').innerText=products[id].price;
+document.getElementById('pImg').src=products[id].img;
+document.getElementById('pDesc').innerText=products[id].desc;
+}
 </script>
 </body>
 </html>
