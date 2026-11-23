@@ -1,35 +1,45 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>حسابي - MONEEB GLOBAL</title>
-<style>
-body{margin:0;font-family:Arial;background:#f6f6f6;direction:rtl}
-.header{background:#0f3d1e;color:#fff;padding:15px;text-align:center}
-.header h2{margin:0;color:#f5c542}
-.profile{background:#fff;margin:12px;padding:15px;border-radius:15px;text-align:center}
-.avatar{font-size:50px}
-.menu{background:#fff;margin:12px;border-radius:15px;overflow:hidden}
-.menu div{padding:15px;border-bottom:1px solid #eee;cursor:pointer}
-.btn{width:90%;background:#7b2ff7;color:#fff;border:none;padding:12px;border-radius:30px;margin:10px 5%}
-.nav{position:fixed;bottom:0;width:100%;background:#fff;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #ddd}
-.nav a{text-decoration:none;color:#0f3d1e;font-weight:bold}
-</style>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>حسابي</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#f5f5f5;padding-bottom:80px}.header{background:#1a4d1a;color:#FFD700;text-align:center;padding:15px;font-weight:bold}.profile{background:white;margin:12px;border-radius:15px;padding:20px;text-align:center}.avatar{font-size:70px}.card{background:white;margin:12px;border-radius:12px;padding:15px}.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee}.btn{background:#6a1b9a;color:white;border:none;width:100%;padding:13px;border-radius:25px;font-size:15px;margin-top:10px;cursor:pointer}.btn2{background:#1a4d1a;color:white;border:none;width:100%;padding:13px;border-radius:25px;font-size:15px;margin-top:10px;cursor:pointer}.nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #ddd}.nav a{text-decoration:none;color:#333;font-size:13px;text-align:center}</style>
 </head>
 <body>
-<div class="header"><h2>👤 حسابي</h2></div>
-<div class="profile"><div class="avatar">👨‍🌾</div><h3>محمد الطيب</h3><p>@mohamed - القضارف</p><p><b>رصيد Pi:</b> 125.5 Pi</p></div>
-<div class="menu">
-<div onclick="location.href='tracking.html'">📦 طلباتي</div>
-<div onclick="location.href='cart.html'">🛒 سلة التسوق</div>
-<div onclick="location.href='home.html'">❤️ المفضلة</div>
-<div>🌍 اللغة: العربية</div>
-<div>⚙️ الإعدادات</div>
-<div>💬 تواصل معنا</div>
+<div class="header">👤 حسابي</div>
+<div class="profile">
+<div class="avatar">👤</div>
+<h2 id="uname">ضيف Pi Harvest</h2>
+<p id="uemail" style="color:#888">مرحباً بك في حصاد باي</p>
+<button class="btn" onclick="editName()">تعديل الاسم ✏️</button>
 </div>
-<button class="btn" onclick="location.href='index.html'">تسجيل خروج</button>
-<br><br>
-<div class="nav"><a href="home.html">🏠 الرئيسية</a><a href="cart.html">🛒 السلة</a><a href="tracking.html">📦 التتبع</a><a href="account.html">👤 حسابي</a></div>
-</body>
-</html>
+<div class="card">
+<h3>📊 ملخص حسابي</h3>
+<div class="row"><span>عدد الطلبات:</span><b id="count">0</b></div>
+<div class="row"><span>إجمالي المشتريات:</span><b id="total">0 Pi</b></div>
+<div class="row"><span>نقاط الحصاد 🌾:</span><b id="points">0 نقطة</b></div>
+</div>
+<div class="card">
+<h3>⚙️ الإعدادات</h3>
+<button class="btn2" onclick="location.href='tracking.html'">📦 طلباتي</button>
+<button class="btn2" onclick="location.href='cart.html'">🛒 سلة التسوق</button>
+<button class="btn2" onclick="clearData()">🗑️ مسح بياناتي</button>
+</div>
+<div class="nav"><a href="home.html">🏠<br>الرئيسية</a><a href="cart.html">🛒<br>السلة</a><a href="tracking.html">📦<br>التتبع</a><a href="account.html">👤<br>حسابي</a></div>
+<script>
+let name=localStorage.getItem('username')||'ضيف Pi Harvest';
+document.getElementById('uname').innerText=name;
+let orders=JSON.parse(localStorage.getItem('orders')||'[]');
+let total=orders.reduce((s,o)=>s+Number(o.total||0),0);
+document.getElementById('count').innerText=orders.length;
+document.getElementById('total').innerText=total+' Pi';
+document.getElementById('points').innerText=(total*10)+' نقطة';
+function editName(){
+let n=prompt('اكتب اسمك:',name);
+if(n){localStorage.setItem('username',n);document.getElementById('uname').innerText=n;alert('تم حفظ الاسم ✅')}
+}
+function clearData(){
+if(confirm('متأكد تمسح كل بياناتك؟')){
+localStorage.clear();location.reload();
+}
+}
+</script>
+</body></html>
