@@ -10,16 +10,23 @@
 <div class="nav"><a href="home.html">🏠<br>الرئيسية</a><a href="cart.html">🛒<br>السلة</a><a href="tracking.html">📦<br>التتبع</a><a href="account.html">👤<br>حسابي</a></div>
 <script>
 let emojis={sesame:'🌾',karkade:'🌺',peanut:'🥜',dates:'🌴'};
-let cart=JSON.parse(localStorage.getItem('cart')||'[]');
+let cart=[];
+['cart','cartItems','piharvest_cart','piharvestCart'].forEach(k=>{
+try{let v=JSON.parse(localStorage.getItem(k)||'[]'); if(Array.isArray(v)&&v.length) cart=v;}catch(e){}});
 let list=document.getElementById('list');
 let sub=0;
-if(cart.length==0){list.innerHTML='<p style="text-align:center;padding:30px">السلة فاضية</p>'}
+if(!cart.length){list.innerHTML='<p style="text-align:center;padding:30px">السلة فاضية - اضف منتج من الرئيسية</p>'}
 cart.forEach(i=>{
-let e=emojis[i.id]||'📦';
-sub+=i.price*i.qty;
-list.innerHTML+=`<div class="item"><div class="emoji">${e}</div><div><b>${i.name}</b><br>${i.price} Pi<br>الكمية: ${i.qty}</div></div>`;
+let id=(i.id||i.productId||'').toString().toLowerCase();
+let name=i.name||i.title||i.product||'منتج';
+let price=Number(i.price||i.cost||0);
+let qty=Number(i.qty||i.quantity||i.count||1);
+let e=emojis[id]||'📦';
+if(name.includes('سمسم')) e='🌾'; if(name.includes('كركدي')) e='🌺'; if(name.includes('فول')) e='🥜'; if(name.includes('تمر')||name.includes('بلح')) e='🌴';
+sub+=price*qty;
+list.innerHTML+=`<div class="item"><div class="emoji">${e}</div><div><b>${name}</b><br>${price} Pi<br>الكمية: ${qty}</div></div>`;
 });
 document.getElementById('sub').innerText=sub+' Pi';
-document.getElementById('grand').innerText=(sub+3)+' Pi';
+document.getElementById('grand').innerText=(sub?sub+3:0)+' Pi';
 </script>
 </body></html>
