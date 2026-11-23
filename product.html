@@ -8,7 +8,7 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#f5f5f5}
 .header{background:#1a4d1a;color:white;text-align:center;padding:15px;font-weight:bold;font-size:20px}
-.product-img{width:100%;height:300px;object-fit:cover}
+.product-img{width:100%;height:300px;object-fit:cover;display:block;background:#ddd}
 .box{background:white;margin:12px;padding:15px;border-radius:15px}
 .box h2{margin-bottom:8px}
 .box p{color:#555;line-height:1.7;font-size:14px}
@@ -16,11 +16,13 @@ body{background:#f5f5f5}
 .btn{width:100%;padding:14px;border:none;border-radius:25px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:8px}
 .btn-add{background:#6a1b9a;color:white}
 .btn-back{background:#eee}
+.nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #ddd}
+.nav a{text-decoration:none;color:#333;font-size:13px;text-align:center}
 </style>
 </head>
 <body>
 <div class="header">MONEEB GLOBAL</div>
-<img id="pImg" class="product-img" src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800">
+<img id="pImg" class="product-img" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sesame-Seeds.jpg?width=800">
 <div class="box">
 <h2 id="pName">سمسم القضارف - درجة أولى</h2>
 <p id="pDesc">سمسم سوداني أصلي من القضارف، درجة أولى، نظيف ومجفف، مناسب للتصدير والطحن. جودة عالية من مزارع مباشرة.</p>
@@ -29,12 +31,20 @@ body{background:#f5f5f5}
 <button class="btn btn-add" onclick="location.href='cart.html'">أضف للسلة 🛒</button>
 <button class="btn btn-back" onclick="location.href='home.html'">⬅ رجوع للرئيسية</button>
 </div>
+
+<div class="nav">
+<a href="home.html">🏠<br>الرئيسية</a>
+<a href="cart.html">🛒<br>السلة</a>
+<a href="tracking.html">📦<br>التتبع</a>
+<a href="account.html">👤<br>حسابي</a>
+</div>
+
 <script>
 const products={
-sesame:{name:"سمسم القضارف - درجة أولى",price:"12 Pi - 25 كجم",img:"https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800",desc:"سمسم سوداني أصلي من القضارف، درجة أولى، نظيف ومجفف."},
-karkade:{name:"كركدي مجفف",price:"8 Pi - 10 كجم",img:"https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=800",desc:"كركدي سوداني مجفف طبيعي، لون غامق وطعم ممتاز."},
-peanut:{name:"فول سوداني مقشر",price:"9 Pi - 25 كجم",img:"https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=800",desc:"فول سوداني مقشر، حبة كبيرة، من أفضل المزارع."},
-dates:{name:"تمر / بلح فاخر",price:"15 Pi - 10 كجم",img:"https://images.unsplash.com/photo-1593904308074-1e3f0e72e0c0?w=800",desc:"تمر سوداني فاخر، طعم حلو وطبيعي 100%."}
+sesame:{name:"سمسم القضارف - درجة أولى",price:"12 Pi - 25 كجم",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Sesame-Seeds.jpg?width=800",desc:"سمسم سوداني أصلي من القضارف، درجة أولى، نظيف ومجفف، مناسب للتصدير والطحن."},
+karkade:{name:"كركدي مجفف",price:"8 Pi - 10 كجم",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Dried%20hibiscus%20flowers.jpg?width=800",desc:"كركدي سوداني مجفف طبيعي، لون غامق وطعم ممتاز، من أفضل مناطق الإنتاج في السودان."},
+peanut:{name:"فول سوداني مقشر",price:"9 Pi - 25 كجم",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Peanuts.jpg?width=800",desc:"فول سوداني مقشر، حبة كبيرة، نظيف، من أفضل المزارع السودانية."},
+dates:{name:"تمر / بلح فاخر",price:"15 Pi - 10 كجم",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Dates003.jpg?width=800",desc:"تمر سوداني فاخر، طعم حلو وطبيعي 100%، من نخيل الشمالية."}
 };
 const id=new URLSearchParams(location.search).get('id');
 if(products[id]){
