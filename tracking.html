@@ -1,35 +1,19 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تتبع الشحنة - MONEEB GLOBAL</title>
-<style>
-body{margin:0;font-family:Arial;background:#f6f6f6;direction:rtl}
-.header{background:#0f3d1e;color:#fff;padding:12px;text-align:center}
-.header h2{margin:0;color:#f5c542}
-.box{background:#fff;margin:12px;padding:15px;border-radius:15px}
-.step{padding:12px;border-right:4px solid #0f3d1e;margin:10px 0;background:#f9f9f9;border-radius:8px}
-.step.done{border-color:#7b2ff7}
-.step.active{border-color:#f5c542;background:#fff8e1}
-.btn{width:100%;background:#7b2ff7;color:#fff;border:none;padding:12px;border-radius:30px;margin-top:10px}
-.nav{position:fixed;bottom:0;width:100%;background:#fff;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #ddd}
-.nav a{text-decoration:none;color:#0f3d1e;font-weight:bold}
-</style>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>تتبع الطلب</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#f5f5f5;padding-bottom:80px}.header{background:#1a4d1a;color:#FFD700;text-align:center;padding:15px;font-weight:bold}.card{background:white;margin:12px;border-radius:12px;padding:15px}.status{color:#1a4d1a;font-weight:bold}.nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #ddd}.nav a{text-decoration:none;color:#333;font-size:13px;text-align:center}</style>
 </head>
 <body>
-<div class="header"><h2>📦 تتبع الشحنة</h2><p>طلب رقم #123 - 23 Pi</p></div>
-<div class="box">
-<div class="step done">✅ تم استلام الطلب - القضارف</div>
-<div class="step done">✅ تم تجهيز الشحنة - مخزن القضارف</div>
-<div class="step active">🚚 في الطريق - القضارف → بورتسودان</div>
-<div class="step">⏳ ميناء بورتسودان - في انتظار الشحن</div>
-<div class="step">⏳ ميناء جدة - الوصول المتوقع 10 أيام</div>
-<p><b>الوجهة:</b> جدة - السعودية</p>
-<p><b>الوصول المتوقع:</b> 10 أيام</p>
-<button class="btn" onclick="location.href='home.html'">متابعة التسوق</button>
-</div>
-<br><br>
-<div class="nav"><a href="home.html">🏠 الرئيسية</a><a href="cart.html">🛒 السلة</a><a href="tracking.html">📦 التتبع</a><a href="account.html">👤 حسابي</a></div>
-</body>
-</html>
+<div class="header">📦 تتبع الطلبات</div>
+<div id="list"></div>
+<div class="nav"><a href="home.html">🏠<br>الرئيسية</a><a href="cart.html">🛒<br>السلة</a><a href="tracking.html">📦<br>التتبع</a><a href="account.html">👤<br>حسابي</a></div>
+<script>
+let orders=JSON.parse(localStorage.getItem('orders')||'[]');
+let list=document.getElementById('list');
+if(!orders.length){list.innerHTML='<p style="text-align:center;padding:30px">لا توجد طلبات بعد<br>اطلب من الرئيسية وارجع هنا</p>'}
+orders.slice().reverse().forEach(o=>{
+let names=o.items.map(i=>i.name+' (x'+(i.qty||1)+')').join('<br>');
+list.innerHTML+=`<div class="card"><b>طلب: ${o.id}</b><br><small>${o.date}</small><br><br>${names}<br><br><div class="row">الإجمالي: <b>${o.total} Pi</b></div><div class="status">✅ تم الاستلام - قيد التجهيز</div><div>📍 القضارف → الخرطوم</div></div>`;
+});
+</script>
+</body></html>
