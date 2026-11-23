@@ -1,49 +1,33 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>المنتج - MONEEB GLOBAL</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#f5f5f5}
-.header{background:#1a4d1a;color:white;text-align:center;padding:15px;font-weight:bold;font-size:20px}
-.img-box{height:280px;display:flex;align-items:center;justify-content:center;font-size:120px}
-.box{background:white;margin:12px;padding:15px;border-radius:15px}
-.box h2{margin-bottom:8px}
-.box p{color:#555;line-height:1.7;font-size:14px}
-.price{color:#1a4d1a;font-weight:bold;font-size:22px;margin:10px 0}
-.btn{width:100%;padding:14px;border:none;border-radius:25px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:8px}
-.btn-add{background:#6a1b9a;color:white}
-.btn-back{background:#eee}
-</style>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>المنتج</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#f5f5f5}.card{background:white;margin:15px;border-radius:15px;padding:20px;text-align:center}.emoji{font-size:100px}.price{color:#1a4d1a;font-size:22px;font-weight:bold;margin:10px}.btn{background:#6a1b9a;color:white;border:none;width:100%;padding:14px;border-radius:25px;font-size:16px;cursor:pointer}.btn2{background:#1a4d1a;color:white;border:none;width:100%;padding:12px;border-radius:25px;font-size:15px;margin-top:10px;cursor:pointer}.nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #ddd}.nav a{text-decoration:none;color:#333;font-size:13px;text-align:center}</style>
 </head>
 <body>
-<div class="header">MONEEB GLOBAL</div>
-<div id="pImgBox" class="img-box" style="background:#FFF8E1">🌾</div>
-<div class="box">
-<h2 id="pName">سمسم القضارف - درجة أولى</h2>
-<p id="pDesc">سمسم سوداني أصلي من القضارف، درجة أولى، نظيف ومجفف.</p>
-<div class="price" id="pPrice">12 Pi - 25 كجم</div>
-<p>🚚 الشحن: متوفر لكل الولايات<br>✅ متوفر في المخزون<br>🌾 من المزرعة مباشرة</p>
-<button class="btn btn-add" onclick="location.href='cart.html'">أضف للسلة 🛒</button>
-<button class="btn btn-back" onclick="location.href='home.html'">⬅ رجوع للرئيسية</button>
+<div class="card">
+<div class="emoji" id="emoji">🌾</div>
+<h2 id="name">سمسم القضارف</h2>
+<p id="desc">درجة أولى - 25 كجم</p>
+<div class="price" id="price">12 Pi</div>
+<button class="btn" onclick="addToCart()">أضف للسلة</button>
+<button class="btn2" onclick="location.href='cart.html'">عرض السلة 🛒</button>
 </div>
+<div class="nav"><a href="home.html">🏠<br>الرئيسية</a><a href="cart.html">🛒<br>السلة</a><a href="tracking.html">📦<br>التتبع</a><a href="account.html">👤<br>حسابي</a></div>
 <script>
-const products={
-sesame:{name:"سمسم القضارف - درجة أولى",price:"12 Pi - 25 كجم",emoji:"🌾",bg:"#FFF8E1",desc:"سمسم سوداني أصلي من القضارف، درجة أولى، نظيف ومجفف."},
-karkade:{name:"كركدي مجفف",price:"8 Pi - 10 كجم",emoji:"🌺",bg:"#FFEBEE",desc:"كركدي سوداني مجفف طبيعي، لون غامق وطعم ممتاز."},
-peanut:{name:"فول سوداني مقشر",price:"9 Pi - 25 كجم",emoji:"🥜",bg:"#FFF3E0",desc:"فول سوداني مقشر، حبة كبيرة، من أفضل المزارع."},
-dates:{name:"تمر / بلح فاخر",price:"15 Pi - 10 كجم",emoji:"🌴",bg:"#EFEBE9",desc:"تمر سوداني فاخر، طعم حلو وطبيعي 100%."}
-};
-const id=new URLSearchParams(location.search).get('id');
-if(products[id]){
-document.getElementById('pName').innerText=products[id].name;
-document.getElementById('pPrice').innerText=products[id].price;
-document.getElementById('pDesc').innerText=products[id].desc;
-document.getElementById('pImgBox').innerText=products[id].emoji;
-document.getElementById('pImgBox').style.background=products[id].bg;
+let products={sesame:{emoji:'🌾',name:'سمسم القضارف - درجة أولى',price:12,desc:'درجة أولى - 25 كجم'},karkade:{emoji:'🌺',name:'كركدي القضارف',price:8,desc:'كركدي طبيعي - 10 كجم'},peanut:{emoji:'🥜',name:'فول سوداني',price:9,desc:'فول سوداني - 25 كجم'},dates:{emoji:'🌴',name:'تمر الشمالية',price:15,desc:'تمر فاخر - 10 كجم'}};
+let params=new URLSearchParams(location.search);
+let id=params.get('id')||'sesame';
+let p=products[id]||products.sesame;
+document.getElementById('emoji').innerText=p.emoji;
+document.getElementById('name').innerText=p.name;
+document.getElementById('desc').innerText=p.desc;
+document.getElementById('price').innerText=p.price+' Pi';
+function addToCart(){
+let cart=JSON.parse(localStorage.getItem('cart')||'[]');
+let found=cart.find(x=>x.id===id);
+if(found){found.qty++} else {cart.push({id:id,name:p.name,price:p.price,qty:1})}
+localStorage.setItem('cart',JSON.stringify(cart));
+alert('تمت الإضافة ✅ '+p.name);
 }
 </script>
-</body>
-</html>
+</body></html>
