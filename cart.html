@@ -1,32 +1,41 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>السلة</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#f5f5f5}.header{background:#1a4d1a;color:#FFD700;text-align:center;padding:15px;font-weight:bold}.item{background:white;margin:12px;border-radius:12px;padding:12px;display:flex;gap:12px;align-items:center}.emoji{font-size:50px}.total{background:white;margin:12px;border-radius:12px;padding:15px}.row{display:flex;justify-content:space-between;padding:6px 0}.btn{background:#6a1b9a;color:white;border:none;width:100%;padding:14px;border-radius:25px;font-size:16px;margin-top:10px;cursor:pointer}.nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #ddd}.nav a{text-decoration:none;color:#333;font-size:13px;text-align:center}</style>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#f5f5f5;padding-bottom:80px}.header{background:#1a4d1a;color:#FFD700;text-align:center;padding:15px;font-weight:bold}.item{background:white;margin:12px;border-radius:12px;padding:12px;display:flex;gap:12px;align-items:center}.emoji{font-size:50px}.total{background:white;margin:12px;border-radius:12px;padding:15px}.row{display:flex;justify-content:space-between;padding:6px 0}.btn{background:#6a1b9a;color:white;border:none;width:100%;padding:14px;border-radius:25px;font-size:16px;margin-top:10px;cursor:pointer}.btn-del{background:#ff5252;color:white;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;margin-top:5px}.nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #ddd}.nav a{text-decoration:none;color:#333;font-size:13px;text-align:center}</style>
 </head>
 <body>
 <div class="header">🛒 سلة التسوق</div>
 <div id="list"></div>
-<div class="total"><div class="row"><span>المجموع:</span><b id="sub">0 Pi</b></div><div class="row"><span>الشحن:</span><b>3 Pi</b></div><div class="row"><span>الإجمالي:</span><b id="grand" style="font-size:18px">0 Pi</b></div><button class="btn" onclick="alert('سيتم ربط الدفع بـ Pi قريباً')">إتمام الطلب - ادفع بـ Pi</button></div>
+<div class="total"><div class="row"><span>المجموع:</span><b id="sub">0 Pi</b></div><div class="row"><span>الشحن:</span><b>3 Pi</b></div><div class="row"><span>الإجمالي:</span><b id="grand" style="font-size:18px">0 Pi</b></div><button class="btn" onclick="checkout()">إتمام الطلب - ادفع بـ Pi</button></div>
 <div class="nav"><a href="home.html">🏠<br>الرئيسية</a><a href="cart.html">🛒<br>السلة</a><a href="tracking.html">📦<br>التتبع</a><a href="account.html">👤<br>حسابي</a></div>
 <script>
 let emojis={sesame:'🌾',karkade:'🌺',peanut:'🥜',dates:'🌴'};
-let cart=[];
-['cart','cartItems','piharvest_cart','piharvestCart'].forEach(k=>{
-try{let v=JSON.parse(localStorage.getItem(k)||'[]'); if(Array.isArray(v)&&v.length) cart=v;}catch(e){}});
+let cart=JSON.parse(localStorage.getItem('cart')||'[]');
 let list=document.getElementById('list');
 let sub=0;
 if(!cart.length){list.innerHTML='<p style="text-align:center;padding:30px">السلة فاضية - اضف منتج من الرئيسية</p>'}
-cart.forEach(i=>{
-let id=(i.id||i.productId||'').toString().toLowerCase();
-let name=i.name||i.title||i.product||'منتج';
-let price=Number(i.price||i.cost||0);
-let qty=Number(i.qty||i.quantity||i.count||1);
+cart.forEach((i,idx)=>{
+let id=(i.id||'').toString().toLowerCase();
+let name=i.name||i.title||'منتج';
+let price=Number(i.price||0);
+let qty=Number(i.qty||i.quantity||1);
 let e=emojis[id]||'📦';
 if(name.includes('سمسم')) e='🌾'; if(name.includes('كركدي')) e='🌺'; if(name.includes('فول')) e='🥜'; if(name.includes('تمر')||name.includes('بلح')) e='🌴';
 sub+=price*qty;
-list.innerHTML+=`<div class="item"><div class="emoji">${e}</div><div><b>${name}</b><br>${price} Pi<br>الكمية: ${qty}</div></div>`;
+list.innerHTML+=`<div class="item"><div class="emoji">${e}</div><div style="flex:1"><b>${name}</b><br>${price} Pi<br>الكمية: ${qty}<br><button class="btn-del" onclick="removeItem(${idx})">حذف ❌</button></div></div>`;
 });
 document.getElementById('sub').innerText=sub+' Pi';
 document.getElementById('grand').innerText=(sub?sub+3:0)+' Pi';
+function removeItem(idx){ cart.splice(idx,1); localStorage.setItem('cart',JSON.stringify(cart)); location.reload(); }
+function checkout(){
+if(!cart.length){alert('السلة فاضية');return;}
+let orders=JSON.parse(localStorage.getItem('orders')||'[]');
+let total=sub+3;
+orders.push({id:'PH-'+Date.now(),items:cart,total:total,date:new Date().toLocaleDateString('ar')});
+localStorage.setItem('orders',JSON.stringify(orders));
+localStorage.removeItem('cart');
+alert('تم استلام طلبك ✅ رقم الطلب: PH-'+orders[orders.length-1].id.slice(-4));
+location.href='tracking.html';
+}
 </script>
 </body></html>
