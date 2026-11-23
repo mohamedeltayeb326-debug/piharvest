@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة المزارع - MONEEB GLOBAL</title>
+<style>
+body{margin:0;font-family:Arial;background:#f6f6f6;direction:rtl}
+.header{background:#0f3d1e;color:#fff;padding:15px;text-align:center}
+.header h2{margin:0;color:#f5c542}
+.box{background:#fff;margin:12px;padding:15px;border-radius:15px}
+input,textarea{width:95%;padding:10px;margin:5px 0;border:1px solid #ddd;border-radius:10px}
+.btn{width:100%;background:#7b2ff7;color:#fff;border:none;padding:15px;border-radius:30px;font-size:18px}
+.nav{position:fixed;bottom:0;width:100%;background:#fff;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #ddd}
+.nav a{text-decoration:none;color:#0f3d1e;font-weight:bold}
+</style>
+</head>
+<body>
+<div class="header"><h2>🌾 لوحة المزارع</h2><p>أضف محصولك وبيع بالـ Pi</p></div>
+<div class="box">
+<h3>أضف منتج جديد</h3>
+<input placeholder="اسم المحصول - مثلا سمسم">
+<input placeholder="السعر بالـ Pi - مثلا 12">
+<input placeholder="الكمية بالكيلو - مثلا 500">
+<textarea placeholder="وصف المحصول..."></textarea>
+<button class="btn" onclick="alert('تم إضافة المنتج بنجاح!')">+ إضافة المنتج</button>
+</div>
+<div class="box">
+<h3>مبيعاتي</h3>
+<p>📦 طلب #123 - سمسم - 12 Pi - تم الدفع ✅</p>
+<p>📦 طلب #124 - كركدي - 8 Pi - في الطريق 🚚</p>
+<p><b>إجمالي المبيعات:</b> 20 Pi</p>
+</div>
+<br><br>
+<div class="nav"><a href="home.html">🏠 الرئيسية</a><a href="cart.html">🛒 السلة</a><a href="tracking.html">📦 التتبع</a><a href="account.html">👤 حسابي</a></div>
+</body>
+</html>
