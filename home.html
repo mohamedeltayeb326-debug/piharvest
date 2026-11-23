@@ -3,52 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PiHarvest - MONEEB GLOBAL</title>
+<title>المنتج - MONEEB GLOBAL</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#f5f5f5}
-.header{background:#1a4d1a;color:white;text-align:center;padding:15px;font-weight:bold;font-size:20px;position:sticky;top:0;z-index:10}
-.search{padding:12px}
-.search input{width:100%;padding:12px;border-radius:20px;border:1px solid #ddd;outline:none;text-align:center}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 12px 90px}
-.card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
-.card img{width:100%;height:150px;object-fit:cover}
-.card-body{padding:10px;text-align:center}
-.card-body h3{font-size:16px;margin-bottom:4px}
-.card-body p{font-size:12px;color:#777;margin-bottom:6px}
-.price{color:#1a4d1a;font-weight:bold;font-size:16px}
-.btn{background:#6a1b9a;color:white;border:none;padding:8px 20px;border-radius:20px;margin-top:8px;cursor:pointer;width:90%}
-.nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #ddd}
-.nav a{text-decoration:none;color:#333;font-size:13px;text-align:center}
-.nav a.active{color:#6a1b9a;font-weight:bold}
+.header{background:#1a4d1a;color:white;text-align:center;padding:15px;font-weight:bold;font-size:20px}
+.img-box{height:280px;display:flex;align-items:center;justify-content:center;font-size:120px}
+.box{background:white;margin:12px;padding:15px;border-radius:15px}
+.box h2{margin-bottom:8px}
+.box p{color:#555;line-height:1.7;font-size:14px}
+.price{color:#1a4d1a;font-weight:bold;font-size:22px;margin:10px 0}
+.btn{width:100%;padding:14px;border:none;border-radius:25px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:8px}
+.btn-add{background:#6a1b9a;color:white}
+.btn-back{background:#eee}
 </style>
 </head>
 <body>
 <div class="header">MONEEB GLOBAL</div>
-<div class="search"><input placeholder="ابحث عن منتج سوداني... 🔍"></div>
-<div class="grid">
-<div class="card">
-<img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800">
-<div class="card-body"><h3>سمسم القضارف</h3><p>درجة أولى - 25 كجم</p><div class="price">12 Pi</div><button class="btn" onclick="location.href='product.html?id=sesame'">عرض</button></div>
+<div id="pImgBox" class="img-box" style="background:#FFF8E1">🌾</div>
+<div class="box">
+<h2 id="pName">سمسم القضارف - درجة أولى</h2>
+<p id="pDesc">سمسم سوداني أصلي من القضارف، درجة أولى، نظيف ومجفف.</p>
+<div class="price" id="pPrice">12 Pi - 25 كجم</div>
+<p>🚚 الشحن: متوفر لكل الولايات<br>✅ متوفر في المخزون<br>🌾 من المزرعة مباشرة</p>
+<button class="btn btn-add" onclick="location.href='cart.html'">أضف للسلة 🛒</button>
+<button class="btn btn-back" onclick="location.href='home.html'">⬅ رجوع للرئيسية</button>
 </div>
-<div class="card">
-<img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=800">
-<div class="card-body"><h3>كركدي</h3><p>مجفف - 10 كجم</p><div class="price">8 Pi</div><button class="btn" onclick="location.href='product.html?id=karkade'">عرض</button></div>
-</div>
-<div class="card">
-<img src="https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=800">
-<div class="card-body"><h3>فول سوداني</h3><p>مقشر - 25 كجم</p><div class="price">9 Pi</div><button class="btn" onclick="location.href='product.html?id=peanut'">عرض</button></div>
-</div>
-<div class="card">
-<img src="https://images.unsplash.com/photo-1593904308074-1e3f0e72e0c0?w=800">
-<div class="card-body"><h3>تمر / بلح</h3><p>فاخر - 10 كجم</p><div class="price">15 Pi</div><button class="btn" onclick="location.href='product.html?id=dates'">عرض</button></div>
-</div>
-</div>
-<div class="nav">
-<a href="home.html" class="active">🏠<br>الرئيسية</a>
-<a href="cart.html">🛒<br>السلة</a>
-<a href="tracking.html">📦<br>التتبع</a>
-<a href="account.html">👤<br>حسابي</a>
-</div>
+<script>
+const products={
+sesame:{name:"سمسم القضارف - درجة أولى",price:"12 Pi - 25 كجم",emoji:"🌾",bg:"#FFF8E1",desc:"سمسم سوداني أصلي من القضارف، درجة أولى، نظيف ومجفف."},
+karkade:{name:"كركدي مجفف",price:"8 Pi - 10 كجم",emoji:"🌺",bg:"#FFEBEE",desc:"كركدي سوداني مجفف طبيعي، لون غامق وطعم ممتاز."},
+peanut:{name:"فول سوداني مقشر",price:"9 Pi - 25 كجم",emoji:"🥜",bg:"#FFF3E0",desc:"فول سوداني مقشر، حبة كبيرة، من أفضل المزارع."},
+dates:{name:"تمر / بلح فاخر",price:"15 Pi - 10 كجم",emoji:"🌴",bg:"#EFEBE9",desc:"تمر سوداني فاخر، طعم حلو وطبيعي 100%."}
+};
+const id=new URLSearchParams(location.search).get('id');
+if(products[id]){
+document.getElementById('pName').innerText=products[id].name;
+document.getElementById('pPrice').innerText=products[id].price;
+document.getElementById('pDesc').innerText=products[id].desc;
+document.getElementById('pImgBox').innerText=products[id].emoji;
+document.getElementById('pImgBox').style.background=products[id].bg;
+}
+</script>
 </body>
 </html>
