@@ -11,6 +11,7 @@ body{margin:0;font-family:Arial;background:#0f3d1e;color:#fff;text-align:center}
 h1{color:#f5c542;font-size:32px;margin:10px}
 p{color:#eee}
 .btn{background:#7b2ff7;color:#fff;border:none;padding:15px 40px;border-radius:30px;font-size:18px;margin-top:20px;cursor:pointer}
+.btn2{background:#fff;color:#0f3d1e;border:none;padding:15px 40px;border-radius:30px;font-size:18px;margin-top:12px;cursor:pointer}
 .footer{margin-top:40px;font-size:14px;opacity:.8}
 </style>
 </head>
@@ -20,14 +21,28 @@ p{color:#eee}
 <p>منصة المحاصيل السودانية - القضارف</p>
 <p>سمسم القضارف | كركدي | فول سوداني</p>
 <button class="btn" onclick="loginPi()">ادخل بـ Pi</button>
+<br>
+<button class="btn2" onclick="goHome()">دخول كضيف - جرب التطبيق</button>
 <div class="footer">MONEEB GLOBAL - moneebglobal</div>
 <script>
+function goHome(){
+  window.location.href="home.html";
+}
 function loginPi(){
-  Pi.init({version:"2.0"});
-  Pi.authenticate(['username','payments'], function(auth){
-    alert("مرحب بيك " + auth.user.username);
-    window.location.href="home.html";
-  });
+  try{
+    Pi.init({version:"2.0"});
+    Pi.authenticate(['username','payments'], function(auth){
+      alert("مرحب بيك " + auth.user.username);
+      goHome();
+    }, function(error){
+      alert("Pi ما اشتغل هنا، ح ندخلك كضيف");
+      goHome();
+    });
+  }catch(e){
+    goHome();
+  }
+  // لو بعد 3 ثواني ما حصل شي، ادخل طوالي
+  setTimeout(goHome, 3000);
 }
 </script>
 </body>
